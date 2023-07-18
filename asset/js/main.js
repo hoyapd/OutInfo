@@ -43,11 +43,22 @@
 
 
 $(document).ready(function() {
+  
+
   // fullpage
   $('#fullpage').fullpage({         
     scrollingSpeed: 500,
     anchors:['oneTab', 'twoTab', 'threeTab', 'fourTab', 'fiveTab'],
     fixedElements: 'header, footer',
+    scrollOverflow: true,
+		scrollOverflowReset: true,
+    sectionsColor : [
+      '#00264b',
+      '#ffffff',
+      '#f1f1f1',
+      '#ffffff',
+      '#ffffff',
+    ],
     navigation: true,
     // scrollBar: true,
     onLeave: function(origin, destination, direction) {
@@ -79,58 +90,55 @@ $(document).ready(function() {
       if(destination == 2){
         second_animation()
       }
+      if(origin == 2){
+        if($('header').hasClass('blur')){
+          $('header').removeClass('blur');
+        }
+      }
+      
       // $('#fullpage').on('scroll touchmove mousewheel', function(event) {                    
       //   event.preventDefault();
       //   event.stopPropagation();
       //   return false;
       // });
     },
-    // afterLoad: function(anchorLink, index) {      
-    //   // 전환이 끝난후 이벤트풀기                               
-    //   $('#fullpage').off('scroll mousewheel');      
-    //   if(!$(".fp-completely .swiper-wrapper").length > 0) $('#fullpage').off('touchmove'); // 모바일분기
-    //   if(swiper) swiper.mousewheel.enable();    
-    //   if(!$(".sec2").hasClass("active")) $.fn.fullpage.setAllowScrolling(true); // 슬라이드 섹션을 벗어나면 휠풀어주기
-    // }
+    afterLoad: function(anchorLink, index) {      
+      if(index == 2){
+        $('header').addClass('blur');
+      }else if($('header').hasClass('blur')){
+        $('header').removeClass('blur');
+      }
+    }
   });
-  
-  let windowHeight = $( window ).innerHeight();
-  let twoSectionHeight = $('#firstTextBox div').height() 
-  + $('#secondTextBox div').height() 
-  + $('#thirdTextBox div').height() 
-  + $('#fourTextBoxforHeight').height() + 150;
-  $('.two-section').css('min-height',windowHeight);
-  $('.two-section').css('height',twoSectionHeight);
-
 });
 
 
 function second_animation(){
+  let windowWidth = $( window ).innerWidth();
   if(!$('.two-section').hasClass('animation-true')){
     $("#textAni").typed({
       strings: ["안녕하세요.<br/>LCI 대표 장원석 입니다."],
       typeSpeed: 50
     });
     setTimeout(function(){
-      var firstHeight = $('#firstTextBox div').height();
-      $('#firstTextBox').css('height',firstHeight);
-    },2400);
-    setTimeout(function(){
-      var secondHeight = $('#secondTextBox div').height();
-      $('#secondTextBox').css('height',secondHeight);
-    },3100);
-    setTimeout(function(){
-      var thirdHeight = $('#thirdTextBox div').height();
-      $('#thirdTextBox').css('height',thirdHeight);
-    },3800);
-    setTimeout(function(){
-      var fourHeight = $('#fourTextBoxforHeight').height();
-      $('#fourTextBox').animate({height:fourHeight,opacity:1},400,'linear');
-    },4500);
-    setTimeout(function(){
-      $('.square-icon-box').removeClass('d-none');
-      $('.square-icon-box').animate({opacity:1},400,'linear');
-    },4900);
-    // $('.two-section').addClass('animation-true');
+      $('.opacity-action').each(function(){
+        $(this).removeClass('opacity-0');
+      })
+    },2700);
+    
   }
+}
+
+function copy_text(text){
+  // 임시의 textarea 생성
+  const area = document.createElement("textarea");
+  // body 요소에 존재해야 복사가 진행됨
+  document.body.appendChild(area);
+  // 복사할 특정 텍스트를 임시의 textarea에 넣어주고 모두 셀렉션 상태
+  area.value = text;
+  area.select();
+  // 복사 후 textarea 지우기
+  document.execCommand('copy');
+  document.body.removeChild(area);
+  alert('복사되었습니다.');
 }
