@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  $('body').removeClass('is-loading');
   // fullpage
   $('#fullpage').fullpage({         
     scrollingSpeed: 500,
@@ -6,6 +7,7 @@ $(document).ready(function() {
     fixedElements: 'header, footer',
     scrollOverflow: true,
 		scrollOverflowReset: true,
+    lazyLoading: true,
     sectionsColor : [
       '#00264b',
       '#ffffff',
@@ -44,7 +46,7 @@ $(document).ready(function() {
       if(destination == 2){
         second_animation()
       }
-      if(origin == 2){
+      if(destination == 1){
         if($('header').hasClass('blur')){
           $('header').removeClass('blur');
         }
@@ -57,8 +59,10 @@ $(document).ready(function() {
       // });
     },
     afterLoad: function(anchorLink, index) {      
-      if(index == 2){
-        $('header').addClass('blur');
+      if(index != 1){
+        if(!$('header').hasClass('blur')){
+          $('header').addClass('blur');
+        }
       }else if($('header').hasClass('blur')){
         $('header').removeClass('blur');
       }
@@ -67,17 +71,11 @@ $(document).ready(function() {
 
 
 
-  const swiper = new Swiper('.swiper', {
+  const swiper = new Swiper('.lciswiper', {
     parallax: true,
     loop: true,
     // autoHeight: true,
-  
-    // If we need pagination
-    // pagination: {
-    //   el: '.swiper-pagination',
-    // },
-  
-    // Navigation arrows
+    
     navigation: {
       nextEl: '.next-btn',
       prevEl: '.prev-btn',
