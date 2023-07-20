@@ -1,9 +1,9 @@
 $(document).ready(function() {
-  $('body').removeClass('is-loading');
   // fullpage
   $('#fullpage').fullpage({         
     scrollingSpeed: 500,
-    anchors:['oneTab', 'twoTab', 'threeTab', 'fourTab', 'fiveTab'],
+    anchors:['oneTab','twoTab','threeTab','fourTab'],
+    navigationTooltips: ['Main','Infomation','Projects','Contact'],
     fixedElements: 'header, footer',
     scrollOverflow: true,
 		scrollOverflowReset: true,
@@ -12,7 +12,6 @@ $(document).ready(function() {
       '#00264b',
       '#ffffff',
       '#f1f1f1',
-      '#ffffff',
       '#ffffff',
     ],
     navigation: true,
@@ -90,6 +89,17 @@ $(document).ready(function() {
     //   el: '.swiper-scrollbar',
     // },
   });
+  
+  const toastTrigger = document.getElementById('customs-toast')
+  const toastLiveExample = document.getElementById('copySuccessPop')
+
+  if (toastTrigger) {
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+    toastTrigger.addEventListener('click', () => {
+      toastBootstrap.show()
+    })
+  }
+  $('body').removeClass('is-loading');
 });
 
 
@@ -121,5 +131,8 @@ function copy_text(text){
   // 복사 후 textarea 지우기
   document.execCommand('copy');
   document.body.removeChild(area);
-  alert('복사되었습니다.');
+
+  const toastLiveExample = document.getElementById('copySuccessPop')
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastBootstrap.show()
 }
