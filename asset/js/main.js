@@ -1,50 +1,4 @@
-/**
- * var myFullpage = new fullpage('#fullpage', {
-  // Navigation
-  lockAnchors: false,
-  navigation: true,
-  navigationPosition: 'right',
-  // navigationTooltips: ['firstSlide','secondSlide','thirdSlide','fourthSlide'],
-  showActiveTooltip: false,
-  slidesNavPosition: 'bottom',
-
-  // Scrolling
-  fitToSectionDelay: 600,
-  easing: 'easeInOutCubic',
-  easingcss3: 'ease',
-
-  // Accessibility
-  keyboardScrolling: true,
-  animateAnchor: true,
-  recordHistory: true,
-
-  // Design
-  fixedElements: '#header',
-
-  // Custom selectors
-  sectionSelector: '.section',
-  // slideSelector: '.slide',
-
-  lazyLoading: true,
-
-  // Events
-  beforeLeave: function(origin, destination, direction, trigger){},
-  onLeave: function(origin, destination, direction, trigger){},
-  afterLoad: function(origin, destination, direction, trigger){},
-  afterRender: function(){},
-  afterResize: function(width, height){},
-  afterReBuild: function(){},
-  afterResponsive: function(isResponsive){},
-  afterSlideLoad: function(section, origin, destination, direction, trigger){},
-  onSlideLeave: function(section, origin, destination, direction, trigger){},
-  onScrollOverflow: function(section, slide, position, direction){}
-});
- */
-
-
 $(document).ready(function() {
-  
-
   // fullpage
   $('#fullpage').fullpage({         
     scrollingSpeed: 500,
@@ -110,12 +64,41 @@ $(document).ready(function() {
       }
     }
   });
+
+
+
+  const swiper = new Swiper('.swiper', {
+    parallax: true,
+    loop: true,
+    // autoHeight: true,
+  
+    // If we need pagination
+    // pagination: {
+    //   el: '.swiper-pagination',
+    // },
+  
+    // Navigation arrows
+    navigation: {
+      nextEl: '.next-btn',
+      prevEl: '.prev-btn',
+    },
+    pagination: {
+      el: ".swiper-custom-pagination",
+      type: "fraction",
+    },
+  
+    // And if we need scrollbar
+    // scrollbar: {
+    //   el: '.swiper-scrollbar',
+    // },
+  });
 });
 
 
 function second_animation(){
-  let windowWidth = $( window ).innerWidth();
+  // let windowWidth = $( window ).innerWidth();
   if(!$('.two-section').hasClass('animation-true')){
+    $('#typeWithTop').addClass('start');
     $("#textAni").typed({
       strings: ["안녕하세요.<br/>LCI 대표 장원석 입니다."],
       typeSpeed: 50
